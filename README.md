@@ -17,4 +17,3 @@ O curso foi organizado com o objetivo de que você:
   - 8) obtenha uma árvore de espécies, utilizando um método sumário de coalescência;
  
 
-Você aprenderá a

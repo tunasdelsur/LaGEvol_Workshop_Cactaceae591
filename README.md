@@ -113,8 +113,7 @@ hybpiper -h
 Por exemplo, nos nossos dados, para todas as amostras, vamos executar o seguinte comando:
 
 ```
-while read name; do
-hybpiper assemble -r $name*.fastq -t_dna targets.fasta --prefix $name --bwa  --run_intronerate; done < namelist.txt
+while read name; do hybpiper assemble -r $name*.fastq -t_dna targets.fasta --prefix $name --bwa  --run_intronerate; done < namelist.txt
 ```
 
 Depois de fazer o assemble, vamos pegar as estatísticas, ver quantos genes foram montados para cada amostra, eficiência, etc.

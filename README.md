@@ -34,11 +34,27 @@ Para interagir no bash, utiliza-se apenas linguagem de computação, que são in
 ## _fastp_
 Para cada amostra enviada para sequenciamento, a empresa retorna dois arquivos (R1 e R2), pois é realizado um sequenciamento ao-par de cada fragmento do DNA amostrado (pair-ended).
 Os arquivos vem com o nome e código do projeto de sequenciamento da empresa, com dados associados ao poço da placa em que a amostra foi montada. 
-Por ex.:
+Por ex., abaixo:
 
-````
-FSC_143302_P001_WC12_132_S32_L001_R1_001.fastq.gz e FSC_143302_P001_WC12_132_S32_L001_R2_001.fastq.gz 
 ```
+FSC_143302_P001_WC12_132_S32_L001_R1_001.fastq.gz 
+
+FSC_143302_P001_WC12_132_S32_L001_R2_001.fastq.gz 
+```
+
+O nome do arquivo contém:
+FSC_143302 = código do projeto na empresa;
+P001_WC12 = Referência ao código da placa e poço da amostra;
+132_S32_L001 = Códigos dos adaptadores, e lanes usados na máquina para sequenciamento (sequenciador);
+R1/R2 = Arquivo 1 ou 2 (read 1 ou read 2);
+fastq.gz = código de extensão do arquivo; fastq.gz significa que a amostra está comprimida utilizando tipo de compressor gz. 
+
+As sequencias brutas descomprimidas possuem arquivo de extensão _fastq_
+
+
+
+
+
 
 
 A sintaxe básica para usar o fastp nos nossos

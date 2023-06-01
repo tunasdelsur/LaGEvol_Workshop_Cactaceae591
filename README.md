@@ -4,7 +4,7 @@
 
 # 02 de junho 2023 / 04 de junho 2023
 
-# Instrução: Monique, Milena e Matias
+# Instrução: Monique, Milena, Matias
  
 Esse workshop abordará algumas das principais etapas de processamento e análise de dados moleculares/genéticos provenientes de 'Targeted-enrichment Sequencing', especificamente do painel do Cactaceae591.
 O curso foi organizado, de maneira práticas, com o objetivo de que você: 

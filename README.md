@@ -43,22 +43,21 @@ FSC_143302_P001_WC12_132_S32_L001_R2_001.fastq.gz
 ```
 
 O nome do arquivo contém:
-FSC_143302 = código do projeto na empresa;
-P001_WC12 = Referência ao código da placa e poço da amostra;
-132_S32_L001 = Códigos dos adaptadores, e lanes usados na máquina para sequenciamento (sequenciador);
-R1/R2 = Arquivo 1 ou 2 (read 1 ou read 2);
-fastq.gz = código de extensão do arquivo; fastq.gz significa que a amostra está comprimida utilizando tipo de compressor gz. 
+- FSC_143302 = código do projeto na empresa;
+- P001_WC12 = Referência ao código da placa e poço da amostra;
+- 132_S32_L001 = Códigos dos adaptadores, e lanes usados na máquina para sequenciamento (sequenciador);
+- R1/R2 = Arquivo 1 ou 2 (read 1 ou read 2);
+- fastq.gz = código de extensão do arquivo; fastq.gz significa que a amostra está comprimida utilizando tipo de compressor gz. 
 
-As sequencias brutas descomprimidas possuem arquivo de extensão _fastq_
-
-
+As sequencias brutas descomprimidas possuem arquivo de extensão _fastq_. Mas conforme avançarmos no processamento dos dados, as sequencias vão mudando de extensão, por exemplo, _.fasta_, _.phy_, _.nex_, ou outros.
 
 
+A sintaxe básica para usar o fastp é a seguinte
 
+```
+fastp -i in.R1.fq.gz -I in.R2.fq.gz -o out.R1.fq.gz -O out.R2.fq.gz
+```
 
-
-A sintaxe básica para usar o fastp nos nossos
-
-
+Bla bla bla
 
 

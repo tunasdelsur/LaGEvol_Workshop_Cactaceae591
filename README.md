@@ -30,6 +30,8 @@ Além da parte prática, serão fornecidos recursos bibliográficos adicionais, 
 
 
 
+
+
  
  # 1) Filtrando e removendo sequências brutas de baixa qualidade proveniente do sequenciamento
  

@@ -23,5 +23,6 @@ O curso foi organizado, de maneira práticas, com o objetivo de que você:
  
 Existem vários métodos e abordagens para realizar essa tarefa. Nesse tutorial, utilizaremos o _fastp_, um processador ultra-rápido e eficienete de arquivos .fastq (Veja mais aqui: https://academic.oup.com/bioinformatics/article/34/17/i884/5093234; e aqui: https://github.com/OpenGene/fastp).
 
-*Obs.: todos os programas aqui
+*Obs.: praticamente todas as tarefas que realizaremos aqui envolvem o uso do Linux e da interface do __Bash.   
+
 

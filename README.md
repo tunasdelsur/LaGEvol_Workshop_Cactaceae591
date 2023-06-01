@@ -20,6 +20,7 @@ O curso foi organizado, de maneira práticas, com o objetivo de que você:
  
 Além da parte prática, serão fornecidos recursos bibliográficos adicionais, e discutidos aspectos tangenciais à parte prática aqui aplicada. Não abordaremos aspetos teóricos e práticos de maneira exaustiva, apenas forneceremos um panorama geral de como iniciar um projeto com dados de target-enrichment, e terminá-lo com uma árvore filogenética. Provavelmente, você irá se deparar com dificuldades teóricas, práticas e metodológicas em algum momento. Não se assuste e não desista - tod@s passam por isso, até Marie Curie, Einsten, Darwin, e Felsestein. 
  
+ ()
  
  # 1) Filtrando e removendo sequências brutas de baixa qualidade proveniente do sequenciamento
  
@@ -152,6 +153,28 @@ Ao final dessa etapa, você deverá ter como saída do HybPiper algumas pastas e
 ```
 
 # 3) Identificando e removendo possíveis parálogos
+
+Nesse ponto, você já deve saber o que são cópias parálogas, e porque devemos estar cientes delas. Existem vários e distintos métodos de identificar e remover parálogos em conjunto de dados filogenômicas.
+Nesse workshop, realizaremos um método simples, baseado no próprio HybPiper. Veja detalhes sobre isso aqui: https://github.com/mossmatters/HybPiper/wiki/Paralogs
+
+Vamos rodar o seguinte código:
+
+```
+hybpiper paralog_retriever namelist.txt -t_dna targets.fasta
+```
+
+Depois de rodar esse código, confira o arquivo "_paralog_heatmap.png_". Existem cópias parálogas no seu conjunto de dados? Quais são?
+Você também pode verificar os arquivos "_paralog_report.tsv_" e "_paralogs_above_threshold_report.txt_", e e conferir como as cópias parálogas estão distribuídas no seu conjunto de dados e no seu grupo de estudo.
+
+A informação sobre cópias parálogas pode ser muito útil para identificar amostras poliplóides, 
+
+
+
+
+
+
+
+
 
 
 

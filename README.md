@@ -18,7 +18,7 @@ O curso foi organizado, de maneira práticas, com o objetivo de que você:
   - 7) gere árvores de máxima-verossimilhança para cada locus e para as sequências concatenadas; 
   - 8) obtenha uma árvore de espécies, utilizando um método sumário de coalescência de espécies;
  
- Além da parte prática, serão fornecidos recursos bibliográficos adicionais, e serão discutidos aspectos tangenciais à parte prática aqui aplicada.
+Além da parte prática, serão fornecidos recursos bibliográficos adicionais, e discutidos aspectos tangenciais à parte prática aqui aplicada. Não abordaremos aspetos teóricos e práticos de maneira exaustiva, apenas forneceremos um panorama geral de como iniciar um projeto com dados de target-enrichment, e terminá-lo com uma árvore filogenética. Provavelmente, você irá se deparar com dificuldades teóricas, práticas e metodológicas em algum momento. Não se assuste e não desista - tod@s passam por isso, até Marie Curie, Einsten, Darwin, e Felsestein. 
  
  
  # 1) Filtrando e removendo sequências brutas de baixa qualidade proveniente do sequenciamento
@@ -55,9 +55,19 @@ As sequencias brutas descomprimidas possuem arquivo de extensão _fastq_. Mas co
 A sintaxe básica para usar o fastp é a seguinte
 
 ```
-fastp -i minha_sequencia_bruta.R1.fastq.gz -I minha_sequencia_bruta.R2.fq.gz -o sequencia_trimmada.R1.fastq.gz -O sequencia_trimmada.R2.fastq.gz
+fastp -i local/com/minha_sequencia_bruta.R1.fastq.gz -I local/com/minha_sequencia_bruta.R2.fq.gz -o local/com/sequencia_trimmada.R1.fastq.gz -O local/com/sequencia_trimmada.R2.fastq.gz
 ```
+Com esse comando, o _fastp_ irá filtrar as sequencias de uma amostra. Porém, em um projeto de filogenômica, trabalhamos com muitos dados, e não só uma sequencia.
+Então, precisamos adaptar os códigos para lidar com muitas sequências. Da mesma maneira, precisamos estar preparados para nos organizar para lidar com muitos dados. 
 
-Bla bla bla
+Você irá criar várias pastase arquivos ao longo do projeto, e você precisa estar atento para saber onde está cada uma, e qual é diferente de qual, e por quê. Ter um caderno de anotações (ou no computador, um bloco de notas - Notepad++, ou outros) pode ser útil, até estar familiarizado com o fluxo de trabalho.
+
+Para rodar 
+
+
+
+
+
+
 
 

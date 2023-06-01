@@ -27,6 +27,8 @@ _*Observação_: praticamente todas as tarefas que realizaremos aqui envolvem o 
 O bash é um ambiente de computação que interpreta comandos de texto e executa tarefas. No sistema operacional do Windows, a partir da versão 2019, é possível instalar um subsistema do Linux no Windows (WSL).
 Espera-se que todos os programas que vamos precisar para a realização desse workshop já estejam instalados e funcionando nos computadores do LaGEvol. Também é possível que os programas sejam instalados em um computador pessoal, ou em um supercomputador, mas isso não será abordado aqui.
 
+Para interagir no bash, utiliza-se apenas linguagem de computação, que são infinitas. As principais serão brevemente exploradas e comentadas ao longo da execução de nossas tarefas. Mas, caso você nunca tenha ouvido falar nelas, ou não tenha tido nenhum contato com elas ao longo de sua vida, recomenda-se navegar na internet por outras fontes e pegar experiência com outros tutoriais: e.g., https://www.hostinger.com.br/tutoriais/comandos-linux 
+
 Para
 
 

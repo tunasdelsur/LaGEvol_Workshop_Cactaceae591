@@ -1,5 +1,8 @@
 # Processamento de dados de sequenciamento gerados por bibliotecas de target-enrichment sequencing (Cactaceae591) - LaGEvol
 # 
+
+![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
+
 # 02 de junho 2023 / 04 de junho 2023
 #
 # Instrução: Monique, Milena e Matias

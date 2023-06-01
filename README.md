@@ -1,10 +1,9 @@
 # Processamento de dados de sequenciamento gerados por bibliotecas de target-enrichment sequencing (Cactaceae591) - LaGEvol
-# 
 
 ![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
 
 # 02 de junho 2023 / 04 de junho 2023
-#
+
 # Instrução: Monique, Milena e Matias
  
 Esse workshop abordará algumas das principais etapas de processamento e análise de dados moleculares/genéticos provenientes de 'Targeted-enrichment Sequencing', especificamente do painel do Cactaceae591.
@@ -32,7 +31,17 @@ Espera-se que todos os programas que vamos precisar para a realização desse wo
 
 Para interagir no bash, utiliza-se apenas linguagem de computação, que são infinitas. As principais serão brevemente exploradas e comentadas ao longo da execução de nossas tarefas. Mas, caso você nunca tenha ouvido falar nelas, ou não tenha tido nenhum contato com elas ao longo de sua vida, recomenda-se navegar na internet por outras fontes e pegar experiência com outros tutoriais: e.g., https://www.hostinger.com.br/tutoriais/comandos-linux 
 
-Para
+## _fastp_
+Para cada amostra enviada para sequenciamento, a empresa retorna dois arquivos (R1 e R2), pois é realizado um sequenciamento ao-par de cada fragmento do DNA amostrado (pair-ended).
+Os arquivos vem com o nome e código do projeto de sequenciamento da empresa, com dados associados ao poço da placa em que a amostra foi montada. 
+Por ex.:
+
+````
+FSC_143302_P001_WC12_132_S32_L001_R1_001.fastq.gz e FSC_143302_P001_WC12_132_S32_L001_R2_001.fastq.gz 
+```
+
+
+A sintaxe básica para usar o fastp nos nossos
 
 
 

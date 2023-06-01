@@ -117,25 +117,45 @@ while read name; do
 hybpiper assemble -r $name*.fastq -t_dna targets.fasta --prefix $name --bwa  --run_intronerate; done < namelist.txt
 ```
 
+Depois de fazer o assemble, vamos pegar as estatísticas, ver quantos genes foram montados para cada amostra, eficiência, etc.
 
-
-##Resumindo o enriquecimento alvo e a eficiência de recuperação de genes para um conjunto de amostras.
-
+```
 hybpiper stats -t_dna test_targets.fasta gene namelist.txt
+```
 
-#Este comando pega o resultado recuperado pelo stats e cria uma figura para visualizar a eficiência da recuperação das regiões alvo.
+Agora, vamos analizar essa informação de forma visual: 
 
+```
 hybpiper recovery_heatmap seq_lengths.tsv
+```
 
-##Recuperando as sequências alvo.
-#Esse comando busca as sequências recuperadas para o mesmo gene de várias amostras e gera um arquivo multi-FASTA desalinhado para cada gene.
- 
-hybpiper retrieve_sequences dna -t_dna test_targets.fasta --sample_names namelist.txt
+Depois de verificar a eficiência de amostra/locus, vamos sintetizar os reads recuperados para cada 'target' (gene/locus) em um alquivo multi-FASTA.
 
-##Recuperando sequências supercontig e/ou introns.
-#Se você executou o Intronerate em suas amostras fornecendo o sinalizador --run_intronerate ao comando de montagem do hybpiper, você também pode especificar "supercontig" ou "intron" para recuperar essas sequências.
+```
+hybpiper retrieve_sequences dna -t_dna targets.fasta --sample_names namelist.txt
+```
 
+Além de recuperar as sequências 'target', podemos também recuperar as sequências adjacentes que foram geradas no sequenciamento. Para isso, utilizamos a o argumento "--run_intronerate" na hora de fazer o assemble, e agora recuperamos essas sequências, que o HybPiper chama de 'supercontig':
+
+```
 hybpiper retrieve_sequences supercontig -t_dna test_targets.fasta --sample_names namelist.txt
+```
+
+
+Ao final dessa etapa, você deverá ter como saída do HybPiper algumas pastas e arquivos, como as citadas abaixo, além de uma pasta para cada uma de suas sequências: 
+
+```
+./01_dna_seqs/
+./04_supercontig_seqs/
+./hybpiper_stats.tsv
+./recovery_heatmap.png
+./seq_lengths.tsv
+```
+
+# 3) Identificando e removendo possíveis parálogos
+
+
+
 
 
 

@@ -1,0 +1,124 @@
+﻿#########################################################################
+############################ SCRIPT HYBPIPER ############################
+#########################################################################
+
+
+Retirado e traduzido de: https://github.com/mossmatters/HybPiper/wiki#20-running-the-pipeline
+
+
+#################### ATUALIZANDO PACOTES BASICOS ######################
+
+
+## Instale e atualize todas as bibliotecas e pacotes do Ubuntu 
+sudo apt update
+sudo apt install build-essential
+
+
+####################### INSTALANDO O HYBPIPER ##########################
+
+
+Para a instalação temos duas alternativas, uma é usar conda e hybpiper como ambiente (altamente recomendado), ou instalar manualmente todas as dependências e hybpiper.
+
+
+## Instale usando conda (altamente recomendado)
+# Certifique-se de ter instalado o python, o conda e os canais do conda bioconda e conda-forge. Se não tiver, primeiro instale o conda e depois os canais usando os comandos abaixo.
+
+
+pip install conda 
+conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge
+
+
+# Instalando HybPiper usando conda com um novo ambiente.
+conda create -n hybpiper -c chrisjackson-pellicle hybpiper
+conda activate hybpiper
+
+
+##Instalação manual de pipeline e dependências (não recomendado)
+#Instale todas as dependências listadas no link abaixo
+https://github.com/mossmatters/HybPiper/wiki/Installation#Dependencies
+#Siga as instruções desceitas no link abaixo
+
+
+
+
+################### EXECUTANDO O HYBPIPER (assemble) ####################
+
+
+### Certifique-se de que seus dados brutos estejam desempacotados (por exemplo, sample.fastq e não sample.fastq.gz)
+#Se necessário, descompacte seus dados usando o comando abaixo
+
+
+tar -zxvf samplesdata_fastq.tar.gz
+
+
+##Para fazer o assembly, o HybPiper precisa dos dados brutos, um arquivo contendo as sequências das regiões alvo. além de um arquivo contendo todos os nomes das amostras, isso facilitará as próximas etapas.
+##Verifique se você tem um arquivo contendo todos os nomes das amostras cada uma em uma linha (ex: namelist.txt); um arquivo contendo as sequências de codificação de destino (ex: all_targets.fasta); e todos os seus dados brutos de amostras (ex: sampleA.fastq)
+
+
+#Executando a montagem para uma amostra
+#exemplo 1:
+hybpiper assemble -r MySpecies_R1.fastq MySpecies_R2.fastq -t_dna targets.fasta
+
+
+#exemplo2:
+hybpiper assemble -r MySpecies_R1.fastq MySpecies_R2.fastq -t_dna targets.fasta  --run_intronerate[a]
+
+
+#Executando a montagem para amostras múltiplas
+while read name; do
+hybpiper assemble -r $name*.fastq -t_dna test_targets.fasta --prefix $name --bwa  --run_intronerate; done < namelist.txt
+
+
+
+
+##Resumindo o enriquecimento alvo e a eficiência de recuperação de genes para um conjunto de amostras.
+
+
+hybpiper stats -t_dna test_targets.fasta gene namelist.txt
+
+
+#Este comando pega o resultado recuperado pelo stats e cria uma figura para visualizar a eficiência da recuperação das regiões alvo.
+
+
+hybpiper recovery_heatmap seq_lengths.tsv
+
+
+##Recuperando as sequências alvo.
+#Esse comando busca as sequências recuperadas para o mesmo gene de várias amostras e gera um arquivo multi-FASTA desalinhado para cada gene.
+ 
+hybpiper retrieve_sequences dna -t_dna test_targets.fasta --sample_names namelist.txt
+
+
+##Recuperando sequências supercontig e/ou introns.
+#Se você executou o Intronerate em suas amostras fornecendo o sinalizador --run_intronerate ao comando de montagem do hybpiper, você também pode especificar "supercontig" ou "intron" para recuperar essas sequências.
+
+
+hybpiper retrieve_sequences supercontig -t_dna test_targets.fasta --sample_names namelist.txt
+
+
+######################## CHECANDO PARÁLOGOS ##########################
+
+
+#recupera sequências de codificação de parálogos alternativos.
+hybpiper paralog_retriever namelist.txt -t_dna test_targets.fasta
+
+
+#Essas duas sequências parálogas ou alelos? A melhor maneira de verificar é usar várias amostras e construir árvores genéticas a partir das sequências. Os arquivos *.fasta desalinhados gerados pelo hybpiper paralog_retriever podem ser usados em um pipeline filogenético para alinhar e reconstruir uma filogenia.
+
+
+#Se você tiver mafft e iQTreeinstalados, você pode criar a árvore diretamente de um arquivo *.paralogs_all.fasta usando pipes:
+cat gene074_paralogs_all.fasta | mafft --auto - | iqtree2 -nt -gtr > gene074.paralogs.tre
+
+
+########################### EDITANDO OS FASTAS ##########################
+
+
+##Os arquivos fasta têm mensagens de aviso após o nome das amostras, vamos removê-las.
+
+
+sed -i 's/*_*[0-9]*_*hits*//g' *
+sed -i 's/single//g' *
+sed -i 's/multi_stitched_contig_comprising_//g' *.FNA
+[a]Para recuperar supercontigs e/ou introns é necessário que o --run_intronerate seja usado no comando do assemble

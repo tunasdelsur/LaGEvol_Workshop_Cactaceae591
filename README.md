@@ -55,7 +55,7 @@ As sequencias brutas descomprimidas possuem arquivo de extensão _fastq_. Mas co
 A sintaxe básica para usar o fastp é a seguinte
 
 ```
-fastp -i in.R1.fq.gz -I in.R2.fq.gz -o out.R1.fq.gz -O out.R2.fq.gz
+fastp -i minha_sequencia_bruta.R1.fastq.gz -I minha_sequencia_bruta.R2.fq.gz -o sequencia_trimmada.R1.fastq.gz -O sequencia_trimmada.R2.fastq.gz
 ```
 
 Bla bla bla

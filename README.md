@@ -7,7 +7,7 @@
 # Instrução: Monique, Milena, Matias
  
 Esse workshop abordará algumas das principais etapas de processamento e análise de dados moleculares/genéticos provenientes de 'Targeted-enrichment Sequencing', especificamente do painel do Cactaceae591.
-O curso foi organizado, de maneira práticas, com o objetivo de que você: 
+O curso foi organizado, de maneira teórico-prática, com o objetivo de que você: 
   
   - 1) entenda como os dados foram e são gerados;
   - 2) aprenda a remover sequências brutas de baixa qualidade proveniente do sequenciamento;
@@ -18,7 +18,8 @@ O curso foi organizado, de maneira práticas, com o objetivo de que você:
   - 7) gere árvores de máxima-verossimilhança para cada locus e para as sequências concatenadas; 
   - 8) obtenha uma árvore de espécies, utilizando um método sumário de coalescência de espécies;
  
-Além da parte prática, serão fornecidos recursos bibliográficos adicionais, e discutidos aspectos tangenciais à parte prática aqui aplicada. Não abordaremos aspetos teóricos e práticos de maneira exaustiva, apenas forneceremos um panorama geral de como iniciar um projeto com dados de target-enrichment, e terminá-lo com uma árvore filogenética. Provavelmente, você irá se deparar com dificuldades teóricas, práticas e metodológicas em algum momento. Não se assuste e não desista - tod@s passam por isso, até Marie Curie, Einsten, Darwin, e Felsestein. 
+Além dessa parte, serão fornecidos recursos bibliográficos adicionais, e discutidos aspectos tangenciais à parte prática aqui aplicada. Não abordaremos aspetos teóricos e práticos de maneira exaustiva, apenas forneceremos um panorama geral de como iniciar um projeto com dados de target-enrichment, e terminá-lo com uma árvore filogenética. Provavelmente, você irá se deparar com dificuldades teóricas, práticas, metodológicas e/ou computacionais em algum momento. Não se assuste e não desista - tod@s passam por isso, até Marie Curie, Einsten, Darwin, e Felsestein. 
+
  
 [1) Filtrando e removendo sequências brutas de baixa qualidade proveniente do sequenciamento](https://github.com/tunasdelsur/LaGEvol_course/blob/main/README.md#1-filtrando-e-removendo-sequ%C3%AAncias-brutas-de-baixa-qualidade-proveniente-do-sequenciamento)
 

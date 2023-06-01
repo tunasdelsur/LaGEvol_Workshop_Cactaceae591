@@ -1,0 +1,153 @@
+﻿##########################################################################
+####################### PROGRAMAS NECESSÁRIOS ########################
+##########################################################################
+* MAFFT 
+* AMAS
+* phyx
+* trimAl
+* IQ-TREE
+* ASTRAL II
+
+
+
+
+#########################################################################
+################# FORMATANDO OS DADOS PARA ANÁLISES #################
+#########################################################################
+
+
+## Alinhando os locos fasta
+# para mais opções/parametros p/ alinhar ver Manpage of MAFFT
+nohup sh -c 'for i in *.fasta; do mafft --auto "$i" > "aligned_$i"; done'  &
+
+
+
+
+## Removendo amostras dos locos alinhados 
+# -g nome dos novos locos com amostras excluídas
+python3 AMAS.py remove -x amostra1 amostra2 amostra3 -d dna -f fasta -i *fasta -u fasta -g removed_samples
+
+
+## Trimando o alinhamento usando o método automático (trimal)
+#para realizar a trimagem automaticamente seguir os passos da etapa “comparando alinhamento original e trimado”
+
+
+trimal -in meualinhamento.fa -strict -out meualinhamento_trim.fa -htmlout meualinhamento_trim.html 
+
+
+#trimando alinhamento considerando gaps em até 70% das amostras (trimal)
+trimal -in meualinhamento.fa -fasta -gt 0.7 -out meualinhamento_trim.fa -htmlout meualinhamento_trim.html -seqoverlap 50
+
+
+#trimando também sequencias problemáticas (trimal)
+for i in *.fasta; do trimal -in "$i" -fasta -gt 0.5  -st 0.0001 -out "$i.fas"; done
+
+
+## Concatenando os locos fasta usando o phyx
+# para outros formatos de input (-s) trocar fasta por  phylip; nexus..
+#  também é possível usar o amas para concatenar
+# -p gera um arquivo com as partições
+ pxcat -s *fasta -p parts_fas.txt -o nome_supermatrix.fasta
+
+
+
+
+
+
+
+
+## Concatenando os locos fasta usando o AMAS
+python3 /home/fernando/AMAS/amas/AMAS.py concat -p partitions.txt -t concat_cactoideae_mitho.fas -u fasta -y raxml -i *.fas -f fasta -d dna
+
+
+## Convertendo o alinhamento trimado fasta em phylip (phyx)
+pxs2phy -s cereus-supermatrix_trim.fasta -o cereus-supermatrix_trim.phy
+
+
+## Relabel sequence name op 1 - using sed
+grep -RiIl 'search' | xargs sed -i  's/Astro184375/Astrophytum_sp/g' *.fasta
+
+
+# relabel sequence name op 2 - using (phyx)
+for i in *.fas; do pxrls -s "$i" -c cnames.txt -n nnames.txt -o "$i.relabel.fas"; done
+
+
+##########################################################################
+####################### INFERÊNCIA FILOGENÉTICA #########################
+##########################################################################
+
+
+## Inferência filogenética ML (IQTREE2)
+## inferência com os dados concatenados e obtendo valores de bootstrap
+# dependendo da versão do iqtree trocar -B por -bb  
+iqtree2 -s example.phy -m GTR+F+R7 -B 1000
+
+
+## inferência com os dados concatenados e escolha do melhor modelo de substituição (utiliza bastante memória RAM) (iqtree)
+nohup iqtree2 -s example.phy -m MFP -B 1000 & 
+
+
+## inferência para cada loco independentemento e estimando o melhor modelo de substituição simultaneamente  (iqtree)
+nohup sh -c 'for i in *.fas; do iqtree -nt 2 -s "$i" -st DNA -m MFP -bb 1000; done 2>iqtree.err' &
+
+
+### inferência com os dados concatenados, escolha do melhor modelo de substituição, bootstrap e considerando partições  (iqtree)
+nohup iqtree -s example.fas -q partition.txt  -bb 1000 > iqtree.out 2> iqtree.err &
+
+
+##Inferência filogenética coalescente (ASTRAL)
+#primeiro precisamos gerar arvores de genes com o iqtree
+for i in *.fas; do iqtree -s "$i" -nt 4 -bb 1000; done
+
+
+#Vamos juntar todas as arvores de genes em um arquivo só
+cat *.treefile > gene-trees_astral_cereus_.tree
+
+
+
+
+#Vamos colapsar nós com baixo suporte, exemplo abaixo está colapsando nós com 10 ou menos de bootstrap
+nw_ed  1KP-genetrees.tre 'i & b<=10' o > 1KP-genetrees-BS10.tre
+
+
+#Rodando o Astral 
+java -jar /mnt/d/Usuários/Monique R. Brito/Downloads/ASTRAL/Astral.5.7.8/Astral/astral.5.7.8.jar -i allmarkers_trees_cereus_cladeA.tree -o astralallmarkers_trees_cereus_cladeA.tree 2> astralallmarkers_trees_cereus_cladeA.log
+
+
+
+
+##########################################################################
+################################## DICAS #################################
+##########################################################################
+
+
+## Alterar a extensão de multiplos arquivos
+## se necessário  -> sudo apt install rename
+rename 's/\._Adjusted.fasta.fas$/.fa.fasta.fas/' *._Adjusted.fasta.fas
+
+
+## Unir arquivos com o mesmo nome em diferentes pastas (pasta 1 e pasta 2)
+# mover a pasta 2 para dentro da pasta 1
+mv pasta2 ./pasta1
+# Agora voce tem uma pasta (pasta 1) com varios arquivos e uma pasta (pasta 2) com varios arquivos com nomes iguais aos arquivos da pasta 1.
+# criar diretório onde os arquivos unidos serão alocados.
+mkdir pasta_arquivofinal
+# Unir arquivos com o mesmo nome em diferentes pastas (pasta 1 e pasta 2) e mover para o diretório pasta_arquivofinal
+# para o comando a seguir funcionar é preciso estar dentro da pasta 1
+ls ./ | while read FILE; do cat ./"$FILE" ./RADSEQ-LOCI-HYBPIPER/"$FILE" >> ./cereus_nigelfinal/"$FILE"; done
+
+
+#outra alternativa para unir multiplos arquivos com o mesmo nome
+# No caso juntando os alinhamentos do seq1 e seq2 
+
+
+for file in dir1/*; do
+   otherfile="$(basename "$file")"
+   if [[ -r dir2/"${otherfile}" ]]; then
+       cat "$file" dir2/"$otherfile" >> combined/"$otherfile"
+   fi
+done
+
+
+## Renomear o nome dos taxons na filogenia
+pxrlt -t partition_genescereus.txt.contree -c cnames.txt -n nnames.txt -o partition_genescereus_relabel.contree

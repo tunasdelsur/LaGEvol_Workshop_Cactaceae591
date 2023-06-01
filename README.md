@@ -21,10 +21,15 @@ O curso foi organizado, de maneira práticas, com o objetivo de que você:
 Além da parte prática, serão fornecidos recursos bibliográficos adicionais, e discutidos aspectos tangenciais à parte prática aqui aplicada. Não abordaremos aspetos teóricos e práticos de maneira exaustiva, apenas forneceremos um panorama geral de como iniciar um projeto com dados de target-enrichment, e terminá-lo com uma árvore filogenética. Provavelmente, você irá se deparar com dificuldades teóricas, práticas e metodológicas em algum momento. Não se assuste e não desista - tod@s passam por isso, até Marie Curie, Einsten, Darwin, e Felsestein. 
  
 [1) Filtrando e removendo sequências brutas de baixa qualidade proveniente do sequenciamento](https://github.com/tunasdelsur/LaGEvol_course/blob/main/README.md#1-filtrando-e-removendo-sequ%C3%AAncias-brutas-de-baixa-qualidade-proveniente-do-sequenciamento)
+[2) Montando as sequências brutas (trimadas) em unidades genéticas informativas (genes/locus) com o HybPiper] (https://github.com/tunasdelsur/LaGEvol_course#2-montando-as-sequ%C3%AAncias-brutas-trimadas-em-unidades-gen%C3%A9ticas-informativas-geneslocus-com-o-hybpiper)
+[3) Identificando e removendo possíveis parálogos] (https://github.com/tunasdelsur/LaGEvol_course#3-identificando-e-removendo-poss%C3%ADveis-par%C3%A1logos)
+[4) Alinhando as sequências e vendo as estatísticas ()
+
+
  
  # 1) Filtrando e removendo sequências brutas de baixa qualidade proveniente do sequenciamento
  
-Existem vários métodos e abordagens para realizar essa tarefa. Nesse tutorial, utilizaremos o _fastp_, um processador ultra-rápido e eficienete de arquivos .fastq (Veja mais aqui: https://academic.oup.com/bioinformatics/article/34/17/i884/5093234; e aqui: https://github.com/OpenGene/fastp).
+Existem vários métodos e abordagens para realizar essa tarefa. Nesse tutorial, utilizaremos o _fastp_, um processador ultra-rápido e eficienete de arquivos `.fastq` (Veja mais aqui: https://academic.oup.com/bioinformatics/article/34/17/i884/5093234; e aqui: https://github.com/OpenGene/fastp).
 
 _*Observação_: praticamente todas as tarefas que realizaremos aqui envolvem o uso do sistema operacional Linux e da interface do _Bash_ para nos comunicar com o computador. 
 O bash é um ambiente de computação que interpreta comandos de texto e executa tarefas. No sistema operacional do Windows, a partir da versão 2019, é possível instalar um subsistema do Linux no Windows (WSL).
@@ -33,7 +38,7 @@ Espera-se que todos os programas que vamos precisar para a realização desse wo
 Para interagir no bash, utiliza-se apenas linguagem de computação, que são infinitas. As principais serão brevemente exploradas e comentadas ao longo da execução de nossas tarefas. Mas, caso você nunca tenha ouvido falar nelas, ou não tenha tido nenhum contato com elas ao longo de sua vida, recomenda-se navegar na internet por outras fontes e pegar experiência com outros tutoriais: e.g., https://www.hostinger.com.br/tutoriais/comandos-linux 
 
 ## _fastp_
-Para cada amostra enviada para sequenciamento, a empresa retorna dois arquivos (R1 e R2), pois é realizado um sequenciamento ao-par de cada fragmento do DNA amostrado (pair-ended).
+Para cada amostra enviada para sequenciamento, a empresa retorna dois arquivos (`R1` e `R2`), pois é realizado um sequenciamento ao-par de cada fragmento do DNA amostrado (pair-ended).
 Os arquivos vem com o nome e código do projeto de sequenciamento da empresa, com dados associados ao poço da placa em que a amostra foi montada. 
 Por ex., abaixo:
 
@@ -44,13 +49,13 @@ FSC_143302_P001_WC12_132_S32_L001_R2_001.fastq.gz
 ```
 
 O nome do arquivo contém:
-- FSC_143302 = código do projeto na empresa;
-- P001_WC12 = Referência ao código da placa e poço da amostra;
-- 132_S32_L001 = Códigos dos adaptadores, e lanes usados na máquina para sequenciamento (sequenciador);
-- R1/R2 = Arquivo 1 ou 2 (read 1 ou read 2);
-- fastq.gz = código de extensão do arquivo; fastq.gz significa que a amostra está comprimida utilizando tipo de compressor gz. 
+- `FSC_143302` = código do projeto na empresa;
+- `P001_WC12` = Referência ao código da placa e poço da amostra;
+- `132_S32_L001` = Códigos dos adaptadores, e lanes usados na máquina para sequenciamento (sequenciador);
+- `R1/R2` = Arquivo 1 ou 2 (read 1 ou read 2);
+- `fastq.gz` = código de extensão do arquivo; `fastq.gz` significa que a amostra está comprimida utilizando tipo de compressor `gz`. 
 
-As sequencias brutas descomprimidas possuem arquivo de extensão _fastq_. Mas conforme avançarmos no processamento dos dados, as sequencias vão mudando de extensão, por exemplo, _.fasta_, _.phy_, _.nex_, ou outros.
+As sequencias brutas descomprimidas possuem arquivo de extensão `fastq`. Mas conforme avançarmos no processamento dos dados, as sequencias vão mudando de extensão, por exemplo, `.fasta`, `.FNA`, `.phy`, `.nex`, ou outros.
 
 
 A sintaxe básica para usar o _fastp_ em uma sequência é a seguinte:
@@ -72,7 +77,7 @@ R2=(*_L001_R2_001.fastq.gz.fastq)
 for ((i=0;i<=${#R1[@]};i++)); do fastp  -i "${R1[i]}" -I "${R2[i]}"  -o "out.${R1[i]}" -O "out.${R2[i]}" -j "${R1[i]}.fastp.json" -h "${R1[i]}.fastp.html" --dont_overwrite --failed_out "failed.${R1[i]}"; done
 ```
 
-Para conferir todas as funções de um programa como o _fastp_, normalmente você pode chamá-lo no terminal com a função _--help_  ou _-h_, assim:
+Para conferir todas as funções de um programa como o _fastp_, normalmente você pode chamá-lo no terminal com a função `--help`  ou `-h`, assim:
 
 ```
 fastp -h
@@ -163,12 +168,21 @@ Vamos rodar o seguinte código:
 hybpiper paralog_retriever namelist.txt -t_dna targets.fasta
 ```
 
-Depois de rodar esse código, confira o arquivo "_paralog_heatmap.png_". Existem cópias parálogas no seu conjunto de dados? Quais são?
-Você também pode verificar os arquivos "_paralog_report.tsv_" e "_paralogs_above_threshold_report.txt_", e e conferir como as cópias parálogas estão distribuídas no seu conjunto de dados e no seu grupo de estudo.
+Depois de rodar esse código, confira o arquivo `paralog_heatmap.png`. Existem cópias parálogas no seu conjunto de dados? Quais são?
+Você também pode verificar os arquivos `_paralog_report.tsv_`, `paralogs_above_threshold_report.txt`, e e conferir como as cópias parálogas estão distribuídas no seu conjunto de dados e no seu grupo de estudo.
 
-A informação sobre cópias parálogas pode ser muito útil para identificar amostras poliplóides, 
+Se você tiver `mafft` e `iQTree` instalados, você pode criar uma árvore diretamente de um arquivo `*.paralogs_all.fasta` usando o seguinte comando:
+```
+cat gene074_paralogs_all.fasta | mafft --auto - | iqtree2 -nt -gtr > gene074.paralogs.tre
+```
 
+Essas duas sequências parálogas ou alelos? 
 
+A informação sobre cópias parálogas pode ser muito útil para identificar amostras poliplóides, duplicação de genomas, híbridos, etc. Mas para isso é necessário análises que não abordagemos no curso.
+
+Como não veremos análises que levam em consideração cópias parálogas, é importante removê-las do nosso conjunto de dados. Dos dados do painel Cactaceae591, já temos um arquivo listando os locus que identificamos como parálogos `0.paralogs_remove.txt`.
+
+# 4) Alinhando as sequências e vendo as estatísticas
 
 
 

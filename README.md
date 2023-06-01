@@ -23,7 +23,7 @@ Além da parte prática, serão fornecidos recursos bibliográficos adicionais, 
 [1) Filtrando e removendo sequências brutas de baixa qualidade proveniente do sequenciamento](https://github.com/tunasdelsur/LaGEvol_course/blob/main/README.md#1-filtrando-e-removendo-sequ%C3%AAncias-brutas-de-baixa-qualidade-proveniente-do-sequenciamento)
 [2) Montando as sequências brutas (trimadas) em unidades genéticas informativas (genes/locus) com o HybPiper] (https://github.com/tunasdelsur/LaGEvol_course#2-montando-as-sequ%C3%AAncias-brutas-trimadas-em-unidades-gen%C3%A9ticas-informativas-geneslocus-com-o-hybpiper)
 [3) Identificando e removendo possíveis parálogos] (https://github.com/tunasdelsur/LaGEvol_course#3-identificando-e-removendo-poss%C3%ADveis-par%C3%A1logos)
-[4) Alinhando as sequências e vendo as estatísticas ()
+[4) Alinhando as sequências e vendo as estatísticas (https://github.com/tunasdelsur/LaGEvol_course#4-alinhando-as-sequ%C3%AAncias-e-vendo-as-estat%C3%ADsticas)
 
 
  
@@ -182,7 +182,12 @@ A informação sobre cópias parálogas pode ser muito útil para identificar am
 
 Como não veremos análises que levam em consideração cópias parálogas, é importante removê-las do nosso conjunto de dados. Dos dados do painel Cactaceae591, já temos um arquivo listando os locus que identificamos como parálogos `0.paralogs_remove.txt`.
 
+
 # 4) Alinhando as sequências e vendo as estatísticas
+
+TO BE DONE.
+
+![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
 
 
 

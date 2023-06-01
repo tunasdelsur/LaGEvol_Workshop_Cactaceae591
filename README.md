@@ -21,9 +21,10 @@ O curso foi organizado, de maneira práticas, com o objetivo de que você:
 Além da parte prática, serão fornecidos recursos bibliográficos adicionais, e discutidos aspectos tangenciais à parte prática aqui aplicada. Não abordaremos aspetos teóricos e práticos de maneira exaustiva, apenas forneceremos um panorama geral de como iniciar um projeto com dados de target-enrichment, e terminá-lo com uma árvore filogenética. Provavelmente, você irá se deparar com dificuldades teóricas, práticas e metodológicas em algum momento. Não se assuste e não desista - tod@s passam por isso, até Marie Curie, Einsten, Darwin, e Felsestein. 
  
 [1) Filtrando e removendo sequências brutas de baixa qualidade proveniente do sequenciamento](https://github.com/tunasdelsur/LaGEvol_course/blob/main/README.md#1-filtrando-e-removendo-sequ%C3%AAncias-brutas-de-baixa-qualidade-proveniente-do-sequenciamento)
-[2) Montando as sequências brutas (trimadas) em unidades genéticas informativas (genes/locus) com o HybPiper] (https://github.com/tunasdelsur/LaGEvol_course#2-montando-as-sequ%C3%AAncias-brutas-trimadas-em-unidades-gen%C3%A9ticas-informativas-geneslocus-com-o-hybpiper)
-[3) Identificando e removendo possíveis parálogos] (https://github.com/tunasdelsur/LaGEvol_course#3-identificando-e-removendo-poss%C3%ADveis-par%C3%A1logos)
-[4) Alinhando as sequências e vendo as estatísticas (https://github.com/tunasdelsur/LaGEvol_course#4-alinhando-as-sequ%C3%AAncias-e-vendo-as-estat%C3%ADsticas)
+[2) Montando as sequências brutas (trimadas) em unidades genéticas informativas (genes/locus) com o HybPiper](https://github.com/tunasdelsur/LaGEvol_course#2-montando-as-sequ%C3%AAncias-brutas-trimadas-em-unidades-gen%C3%A9ticas-informativas-geneslocus-com-o-hybpiper)
+[3) Identificando e removendo possíveis parálogos](https://github.com/tunasdelsur/LaGEvol_course#3-identificando-e-removendo-poss%C3%ADveis-par%C3%A1logos)
+[4) Alinhando as sequências e vendo as estatísticas](https://github.com/tunasdelsur/LaGEvol_course#4-alinhando-as-sequ%C3%AAncias-e-vendo-as-estat%C3%ADsticas)
+
 
 
  

@@ -74,14 +74,14 @@ fastp -i local/com/minha_sequencia_bruta.R1.fastq.gz -I local/com/minha_sequenci
 Com esse comando, o _fastp_ irá filtrar as sequencias de uma amostra. Porém, em um projeto de filogenômica, trabalhamos com muitos dados, e não só uma sequencia.
 Então, precisamos adaptar os códigos para lidar com muitas sequências. Da mesma maneira, precisamos estar preparados para nos organizar para lidar com muitos dados. 
 
-Você irá criar várias pastase arquivos ao longo do projeto, e você precisa estar atento para saber onde está cada uma, e qual é diferente de qual, e por quê. Ter um caderno de anotações (ou no computador, um bloco de notas - Notepad++, ou outros) pode ser útil, até estar familiarizado com o fluxo de trabalho.
+Você irá criar várias pastas e arquivos ao longo do projeto, e você precisa estar atento para saber onde está cada uma, e qual é diferente de qual, e por quê. Ter um caderno de anotações (ou no computador, um bloco de notas - Notepad++, ou outros) pode ser útil, até estar familiarizado com o fluxo de trabalho.
 
 Para rodar o _fastp_  em várias sequencias de uma única vez, elaboramos o seguinte código para vocês:
 
 ```
 R1=(*_L001_R1_001.fastq.gz.fastq)
 R2=(*_L001_R2_001.fastq.gz.fastq)
-for ((i=0;i<=${#R1[@]};i++)); do fastp  -i "${R1[i]}" -I "${R2[i]}"  -o "out.${R1[i]}" -O "out.${R2[i]}" -j "${R1[i]}.fastp.json" -h "${R1[i]}.fastp.html" --dont_overwrite --failed_out "failed.${R1[i]}"; done
+for ((i=0;i<=${#R1[@]};i++)); do fastp  -i "${R1[i]}" -I "${R2[i]}"  -o "out.${R1[i]}" -O "out.${R2[i]}" -j "${R1[i]}.fastp.json" -h "${R1[i]}.fastp.html" -q 20 --dont_overwrite --failed_out "failed.${R1[i]}"; done
 ```
 
 Para conferir todas as funções de um programa como o _fastp_, normalmente você pode chamá-lo no terminal com a função `--help`  ou `-h`, assim:
@@ -99,10 +99,10 @@ Aparecerá na sua tela todas as opções de comando do programa, com informaçõ
 
 O HybPiper é um 'programa' (na verdade, chamamos de 'pipeline', pois é um programa que utiliza vários programas para chegar em um resultado final). Você pode conferir as informações completas dele aqui, inclusive de como usar: https://github.com/mossmatters/HybPiper
 
-Ele irá juntar os as sequências brutas (raw) em "genes" ou outras unidades informativas do genoma que temos interesse. Para fazer o assembly, o HybPiper precisa dos dados brutos, um arquivo contendo as sequências das regiões alvo. além de um arquivo contendo todos os nomes das amostras, isso facilitará as próximas etapas.
+Ele irá juntar os as sequências brutas (raw) em "genes" ou outras unidades informativas do genoma que temos interesse. Para fazer o assembly, o HybPiper precisa dos dados brutos, um arquivo contendo as sequências das regiões alvo, além de um arquivo contendo todos os nomes das amostras, isso facilitará as próximas etapas.
 
 
-1) Certifique-se de que seus dados brutos estejam desempacotados (por exemplo, sample.fastq e não sample.fastq.gz).
+1) Certifique-se de que seus dados brutos estejam descompactados (por exemplo, sample.fastq e não sample.fastq.gz).
 Se necessário, descompacte seus dados usando o comando abaixo:
 
 ```
@@ -164,6 +164,19 @@ Ao final dessa etapa, você deverá ter como saída do HybPiper algumas pastas e
 ./seq_lengths.tsv
 ```
 
+
+
+Vamos abrir em um editor de texto um arquivo .FNA gerado pelo HybPiper e analisar o  que tem dentro dele. 
+
+
+Podemos observar que além do nome da amostra, a sequência de DNA de cada amostra, temos também mensagens de aviso após o nome das amostras. Precisamos remover apenas as mensagens de erro, elas podem gerar mensagens de erro nas próximas etapas (alinhamento;trimagem) 
+
+```
+sed -i 's/*_*[0-9]*_*hits*//g' *
+sed -i 's/single//g' *
+sed -i 's/multi_stitched_contig_comprising_//g' *
+```
+
 # 3) Identificando e removendo possíveis parálogos
 
 Nesse ponto, você já deve saber o que são cópias parálogas, e porque devemos estar cientes delas. Existem vários e distintos métodos de identificar e remover parálogos em conjunto de dados filogenômicas.
@@ -176,18 +189,18 @@ hybpiper paralog_retriever namelist.txt -t_dna targets.fasta
 ```
 
 Depois de rodar esse código, confira o arquivo `paralog_heatmap.png`. Existem cópias parálogas no seu conjunto de dados? Quais são?
-Você também pode verificar os arquivos `_paralog_report.tsv_`, `paralogs_above_threshold_report.txt`, e e conferir como as cópias parálogas estão distribuídas no seu conjunto de dados e no seu grupo de estudo.
+Você também pode verificar os arquivos `_paralog_report.tsv_`, `paralogs_above_threshold_report.txt`, e conferir como as cópias parálogas estão distribuídas no seu conjunto de dados e no seu grupo de estudo.
 
 Se você tiver `mafft` e `iQTree` instalados, você pode criar uma árvore diretamente de um arquivo `*.paralogs_all.fasta` usando o seguinte comando:
 ```
-cat gene074_paralogs_all.fasta | mafft --auto - | iqtree2 -nt -gtr > gene074.paralogs.tre
+cat gene074_paralogs_all.fasta | mafft --auto - | iqtree2 -s - > gene074.paralogs.tre
 ```
 
 Essas duas sequências parálogas ou alelos? 
 
 A informação sobre cópias parálogas pode ser muito útil para identificar amostras poliplóides, duplicação de genomas, híbridos, etc. Mas para isso é necessário análises que não abordagemos no curso.
 
-Como não veremos análises que levam em consideração cópias parálogas, é importante removê-las do nosso conjunto de dados. Dos dados do painel Cactaceae591, já temos um arquivo listando os locus que identificamos como parálogos `0.paralogs_remove.txt`.
+Como não veremos análises que levam em consideração cópias parálogas, é importante removê-las do nosso conjunto de dados. Dos dados do painel Cactaceae591, já temos um arquivo listando os locus que identificamos como parálogos `list_paralogs_remove.txt`.
 
 
 # 4) Alinhando as sequências e vendo as estatísticas

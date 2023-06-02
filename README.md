@@ -111,6 +111,12 @@ tar -zxvf samplesdata_fastq.tar.gz
 
 Verifique se você tem um arquivo contendo todos os nomes das amostras, cada uma em uma linha (ex: namelist.txt); um arquivo de referência contendo as sequências do genoma de interesse geradas com o sequenciamento do targe-capture (ex: targets.fasta); e todos os seus dados brutos trimados de amostras (ex: amostra1_R1_trimada.fastq, amostra1_R2_trimada.fastq)
 
+Primeiro, ative a biblioteca do HybPiper pelo conda.
+
+```
+conda activate hybpiper
+```
+
 Para uma amostra, usaríamos o seguinte comando:
 
 ```

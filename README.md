@@ -99,7 +99,7 @@ Aparecerá na sua tela todas as opções de comando do programa, com informaçõ
 
 O HybPiper é um 'programa' (na verdade, chamamos de 'pipeline', pois é um programa que utiliza vários programas para chegar em um resultado final). Você pode conferir as informações completas dele aqui, inclusive de como usar: https://github.com/mossmatters/HybPiper
 
-Ele irá juntar os as sequências brutas (raw) em "genes" ou outras unidades informativas do genoma que temos interesse. Para fazer o assembly, o HybPiper precisa dos dados brutos, um arquivo contendo as sequências das regiões alvo, além de um arquivo contendo todos os nomes das amostras, isso facilitará as próximas etapas.
+Ele irá juntar as sequências brutas (raw) em "genes" ou outras unidades informativas do genoma que temos interesse. Para fazer o assembly, o HybPiper precisa dos dados brutos, um arquivo contendo sequências de referência das regiões alvo, além de um arquivo contendo todos os nomes das amostras - pois isso facilitará as próximas etapas.
 
 
 1) Certifique-se de que seus dados brutos estejam descompactados (por exemplo, sample.fastq e não sample.fastq.gz).

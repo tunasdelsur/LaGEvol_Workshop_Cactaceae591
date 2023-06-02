@@ -81,7 +81,7 @@ Para rodar o _fastp_  em várias sequencias de uma única vez, elaboramos o segu
 ```
 R1=(*_L001_R1_001.fastq.gz.fastq)
 R2=(*_L001_R2_001.fastq.gz.fastq)
-for ((i=0;i<=${#R1[@]};i++)); do fastp  -i "${R1[i]}" -I "${R2[i]}"  -o "out.${R1[i]}" -O "out.${R2[i]}" -j "${R1[i]}.fastp.json" -h "${R1[i]}.fastp.html" -q 20 --dont_overwrite --failed_out "failed.${R1[i]}"; done
+for ((i=0;i<=${#R1[@]};i++)); do fastp  -i "${R1[i]}" -I "${R2[i]}"  -o "trim_${R1[i]}.fastq" -O "trim_${R2[i]}.fastq" -j "${R1[i]}.fastp.json" -h "${R1[i]}.fastp.html" -q 20 --dont_overwrite --failed_out "failed.${R1[i]}"; done
 ```
 
 Para conferir todas as funções de um programa como o _fastp_, normalmente você pode chamá-lo no terminal com a função `--help`  ou `-h`, assim:
@@ -193,7 +193,8 @@ Você também pode verificar os arquivos `_paralog_report.tsv_`, `paralogs_above
 
 Se você tiver `mafft` e `iQTree` instalados, você pode criar uma árvore diretamente de um arquivo `*.paralogs_all.fasta` usando o seguinte comando:
 ```
-cat gene074_paralogs_all.fasta | mafft --auto - | iqtree2 -s - > gene074.paralogs.tre
+mafft --auto gene074_paralogs_all.fasta > aligned_gene074_paralogs_all.fast
+iqtree -s gene074_paralogs_all.fasta 
 ```
 
 Essas duas sequências parálogas ou alelos? 

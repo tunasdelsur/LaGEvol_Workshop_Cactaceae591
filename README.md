@@ -284,7 +284,7 @@ trimal -in meualinhamento.fa -strict -out meualinhamento_trim.fa -htmlout meuali
 Agora escolha um dos dois métodos e faça um loop para realizar esse polimento para todas as amostras usando um só comando. Exemplo abaixo utiliza o argumento strict:
 
 ```
-for i in *.FNA; do trimal -in “$i” -fasta -gt 0.7 -out ./alinhamento_trimado/“$i_trimmed.fasta” -htmlout “$i.html”; done
+for i in *.FNA; do trimal -in "$i" -gt 0.7 -out ./alinhamento_trimado/"$i_trimmed.fasta" -htmlout "$i.html"; done
 ```
 
 Esses alinhamentos 'polidos" serão nossos conjunto de dados utilizados em todas as análises a seguir. 

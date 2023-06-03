@@ -284,7 +284,7 @@ trimal -in meualinhamento.fa -strict -out meualinhamento_trim.fa -htmlout meuali
 Agora escolha um dos dois métodos e faça um loop para realizar esse polimento para todas as amostras usando um só comando. Exemplo abaixo utiliza o argumento strict:
 
 ```
-for i in *.FNA; do trimal -in $i -out ./alinhamento_trimado/$i_trimmed.fasta -gt 0.7; done; 
+for i in *.FNA; do trimal -in $i -out ./alinhamento_trimado/"$i"_trimmed.fasta -gt 0.7; done; 
 ```
 
 Esses alinhamentos 'polidos" serão nossos conjunto de dados utilizados em todas as análises a seguir. 
@@ -293,8 +293,9 @@ Esses alinhamentos 'polidos" serão nossos conjunto de dados utilizados em todas
 Agora com nossos locos alinhados e “polidos”, podemos gerar algumas estatísticas para avaliar em cada loco quantas amostras temos, qual o comprimento das sequências, o número de N (caracteres indeterminados), proporção de sítios variáveis... 
 
 Para isso utilizaremos o programa AMAS com o seguinte comando:
+
 ```
-python3 AMAS.py summary -f fasta -d aa -i *.fasta
+python3 AMAS.py summary -f fasta -d dna -i *.fasta -o 0.SummaryStats.csv
 ```
 
 # 6) Inferencia filogenética baseada em máxima-verossimilhança para cada locus e para as sequências concatenadas

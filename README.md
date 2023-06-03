@@ -284,18 +284,11 @@ trimal -in meualinhamento.fa -strict -out meualinhamento_trim.fa -htmlout meuali
 Agora escolha um dos dois métodos e faça um loop para realizar esse polimento para todas as amostras usando um só comando. Exemplo abaixo utiliza o argumento strict:
 
 ```
-for i in *.fasta; do trimal -in “$i” -fasta -gt 0.7 -out ./alinhamento_trimado/“$i_trimmed.fasta” -htmlout “$i.html”; done
+for i in *.FNA; do trimal -in “$i” -fasta -gt 0.7 -out ./alinhamento_trimado/“$i_trimmed.fasta” -htmlout “$i.html”; done
 ```
 
-Esses alinhamentos 'polidos" serão nossos conjunto de dados utilizados em todas as análises a seguir. Portanto, podemos criar uma pasta para armazenar esses nosso conjunto de dados final. 
-```
-mkdir alinhamento_trimado
-```
+Esses alinhamentos 'polidos" serão nossos conjunto de dados utilizados em todas as análises a seguir. 
 
-Agora vamos mover nossos arquivos finais para a pasta alinhamento_trimado
-```
-for i in strict*; do mv "$i" ./alinhamento_trimado
-```
 
 Agora com nossos locos alinhados e “polidos”, podemos gerar algumas estatísticas para avaliar em cada loco quantas amostras temos, qual o comprimento das sequências, o número de N (caracteres indeterminados), proporção de sítios variáveis... 
 

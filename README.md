@@ -27,10 +27,9 @@ Além dessa parte, serão fornecidos recursos bibliográficos adicionais, e disc
 
 [3) Identificando e removendo possíveis parálogos](https://github.com/tunasdelsur/LaGEvol_course#3-identificando-e-removendo-poss%C3%ADveis-par%C3%A1logos)
 
-[4) Alinhando as sequências e vendo as estatísticas](https://github.com/tunasdelsur/LaGEvol_course#4-alinhando-as-sequ%C3%AAncias-e-vendo-as-estat%C3%ADsticas)
-
-
-
+[4) Alinhando as sequências](https://github.com/tunasdelsur/LaGEvol_course#4-alinhando-as-sequ%C3%AAncias)
+[5) Filtrando sequências espúrias, mal alinhadas ou ricas em gaps e vendo as estatísticas()
+[6) Inferencia filogenética baseada em máxima-verossimilhança para cada locus e para as sequências concatenadas
 
 
  
@@ -260,7 +259,7 @@ nohup sh -c 'for i in *.fasta; do mafft --reorder --auto "$i" > "./Alignments/al
 ```
 
 
-# 5) Filtrando sequências espúrias, mal alinhadas ou ricas em gaps
+# 5) Filtrando sequências espúrias, mal alinhadas ou ricas em gaps e vendo as estatísticas
 
 Ainda que usemos os melhores programas, com os melhores algoritmos para alinhar nossos locos com múltiplas sequências, esses métodos podem falhar com certas famílias de proteínas ou em regiões específicas do alinhamento. A confiabilidade e precisão das análises dependem criticamente da qualidade dos alinhamentos, portanto se conseguirmos identificar e remover essas regiões mal alinhadas e/ou com sequências espúrias, melhoraremos a qualidade do nosso alinhamento e consequentemente as estimativas das análises que dependem da informação contida nesses alinhamentos.
 
@@ -292,6 +291,7 @@ Para isso utilizaremos o programa AMAS com o seguinte comando:
 python3 AMAS.py summary -f fasta -d aa -i *.fasta
 ```
 
+# 6) Inferencia filogenética baseada em máxima-verossimilhança para cada locus e para as sequências concatenadas
 
 TO BE DONE.
 

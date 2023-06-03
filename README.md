@@ -141,7 +141,7 @@ while read name; do hybpiper assemble -r $name*.fastq -t_dna targets.fasta --pre
 Depois de fazer o assemble, vamos pegar as estatísticas, ver quantos genes foram montados para cada amostra, eficiência, etc.
 
 ```
-hybpiper stats -t_dna test_targets.fasta gene namelist.txt
+hybpiper stats -t_dna targets.fasta gene namelist.txt
 ```
 
 Agora, vamos analizar essa informação de forma visual: 

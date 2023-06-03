@@ -212,6 +212,16 @@ Como não veremos análises que levam em consideração cópias parálogas, é i
 
 # 4) Alinhando as sequências e vendo as estatísticas
 
+Agora que já temos as sequências dos locos e das amostras 'montadas', podemos seguir para o próximo passo, que é alinhar as sequências. Isso é necessário para que possamos comparar as sequências das amostras entre si de maneira que faça sentido evolutivo, ou seja, comparando entre sítios que tenham a mesma história evolutiva. Mesmo que para o sequênciamento de todas as amostras tenha sido usado as mesmas 'probes', é possível e provável que a sequência final montada de cada locus/amostra tenha tamanhos diferentes, tenha iniciado/terminado em regiões diferentes, ou que tenha sido montada regiões além da que fornecemos no arquivo de referência. Por isso, precisamos alinhar.
+
+Após fazer o assemble com o HybPiper, e utilizar o comando `retrieve_sequences`, você deve ter gerado na sua pasta de trabalho os seguintes diretótios, por exemplo: `01_dna_seqs` e `04_supercontigs_seqs`.
+Dentro dessas pastas, tem um arquivo `.fasta` ou `.FNA` para cada locus que foi fornecido no arquivo de referência `targest.fasta`. É cada arquivo desse que precisa ser alinhado.
+
+## mafft
+
+O MAFFT é um programa para alinhamento de sequências nucleotídicas ou de aminoácidos. É amplamente usado e reconhecido pela sua eficiência computacional e acurácia. Para a documentação completa, veja aqui: https://mafft.cbrc.jp/alignment/software/
+
+
 TO BE DONE.
 
 ![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)

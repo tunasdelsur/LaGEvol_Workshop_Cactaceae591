@@ -199,8 +199,8 @@ Você também pode verificar os arquivos `_paralog_report.tsv_`, `paralogs_above
 
 Se você tiver `mafft` e `iQTree` instalados, você pode criar uma árvore diretamente de um arquivo `*.paralogs_all.fasta` usando o seguinte comando:
 ```
-mafft --auto gene074_paralogs_all.fasta > aligned_gene074_paralogs_all.fast
-iqtree -s gene074_paralogs_all.fasta 
+mafft --auto gene074_paralogs_all.fasta > aligned_gene074_paralogs_all.fasta
+iqtree -s aligned_gene074_paralogs_all.fasta 
 ```
 
 Essas duas sequências parálogas ou alelos? 
@@ -209,6 +209,16 @@ A informação sobre cópias parálogas pode ser muito útil para identificar am
 
 Como não veremos análises que levam em consideração cópias parálogas, é importante removê-las do nosso conjunto de dados. Dos dados do painel Cactaceae591, já temos um arquivo listando os locus que identificamos como parálogos `list_paralogs_remove.txt`.
 
+Para remover os locos paralogos vamos primeiro criar uma pasta.
+```
+mkdir locos_paralogos
+```
+
+Agora podemos mover todos os arquivos fasta dos genes identificados como paralogos para a pasta locos_paralogos. Assim eles nao estaram juntos dos locos que iremos usar nas nossas análises. 
+
+```
+while read line; do mv $line ./locos_paralogos; done < list_paralogs_remove.txt
+```
 
 # 4) Alinhando as sequências e vendo as estatísticas
 
@@ -246,9 +256,41 @@ mkdir Alignments
 Agora, o loop para alinhar todas as sequencias, e direcionar para a pasta criada:
 
 ```
-for i in *.fasta; do mafft --reorder --auto "$i" > ./Alignments/"$i"; done
+nohup sh -c 'for i in *.fasta; do mafft --reorder --auto "$i" > "./Alignments/aligned_$i"; done'  &
 ```
 
+
+# 5) Filtrando sequências espúrias, mal alinhadas ou ricas em gaps
+
+Ainda que usemos os melhores programas, com os melhores algoritmos para alinhar nossos locos com múltiplas sequências, esses métodos podem falhar com certas famílias de proteínas ou em regiões específicas do alinhamento. A confiabilidade e precisão das análises dependem criticamente da qualidade dos alinhamentos, portanto se conseguirmos identificar e remover essas regiões mal alinhadas e/ou com sequências espúrias, melhoraremos a qualidade do nosso alinhamento e consequentemente as estimativas das análises que dependem da informação contida nesses alinhamentos.
+
+Para realizar esse "polimento" dos alinhamentos utilizaremos o programa trimal. Trimal é uma ferramenta desenvolvida para fazer esse “polimento” dos alinhamentos em larga escala (genômica). De forma simplificada, ele começa lendo todas as colunas em um alinhamento e calcula uma pontuação para cada uma delas. Nesse tutorial iremos explorar dois argumentos diferentes para “polir” os alinhamentos. 
+Usando o valor de gap para polir um alinhamento. 
+
+O exemplo abaixo elimina as colunas nas quais a fração de gap for menor que 0.7 (70% das amostras).
+
+```
+trimal -in meualinhamento.fa -fasta -gt 0.7 -out meualinhamento_trim.fa -htmlout meualinhamento_trim.html 
+```
+
+Usando o argumento strict para polir o alinhamento. Esse argumento combina as informações sobre a fração de gaps em uma coluna e seus escores de similaridade.
+
+```
+trimal -in meualinhamento.fa -strict -out meualinhamento_trim.fa -htmlout meualinhamento_trim.html
+```
+
+Agora escolha um dos dois métodos e faça um loop para realizar esse polimento para todas as amostras usando um só comando. Exemplo abaixo utiliza o argumento strict:
+
+```
+for i in *.fasta; do trimal -in “$i” -strict -out “strict_$i” -htmlout “$i.html”; done
+```
+
+Agora com nossos locos alinhados e “polidos”, podemos gerar algumas estatísticas para avaliar em cada loco quantas amostras temos, qual o comprimento das sequências, o número de N (caracteres indeterminados), proporção de sítios variáveis... 
+
+Para isso utilizaremos o programa AMAS com o seguinte comando:
+```
+python3 AMAS.py summary -f fasta -d aa -i *.fasta
+```
 
 
 TO BE DONE.

@@ -321,7 +321,7 @@ pxcat -s *fasta -p partitions.txt -o minha_supermatrix.fasta  # -p gera um arqui
 
 Também é possível usar o amas para concatenar.
 ```
-python3 AMAS.py concat -p partitions.txt -t minha_supermatrix.fasta -u fasta -y raxml -i *.fas -f fasta -d dna
+python3 AMAS.py concat -p partitions.txt -t minha_supermatrix.fasta -u fasta -y raxml -i *.fasta -f fasta -d dna
 ```
 
 Para manter cada tipo de inferência estimada organizada, vamos criar uma pasta apenas para armazenar nossa supermatrix e as inferências geradas a partir dela. 

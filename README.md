@@ -353,18 +353,16 @@ Como dado de entrada para o astral utilizaremos as árvores de genes geradas pel
 cat *.treefile > all-gene-trees.tree
 ```
 
-Vamos renomear os tips das arvores que geramos. Primeiro, renomearemos a arvore de supermatrix
-
-```
-pxrlt -t minha_supermatrix.fasta.treefile -c cnames.txt -n nnames.txt -o minha_supermatrix.fasta.relabel.treefile
-```
-
-
-
 Pensando novamente na organização dos nossos dados e análises, vamos criar uma pasta para armazenar apenas os inputs e resultados gerados pelo Astral.
 ```
 mkdir astral_tree
 mv  all-gene-trees.tree ./astral_tree
+```
+
+Vamos renomear os tips das arvores de genes que geramos. 
+
+```
+pxrlt -t all-gene-trees.tree -c cnames.txt -n nnames.txt -o all-gene-trees.relabel.tree
 ```
 
 Agora vamos colapsar os nós com baixo suporte das nossas arvores de genes, exemplo abaixo está colapsando nós com 50 ou menos de bootstrap
@@ -376,6 +374,13 @@ Com esse arquivo contendo todas as nossas árvores de genes com os nós colapsad
 Rodando o Astral: 
 ```
 java -jar /local/da/pasta/astral.5.7.8.jar -i all-gene-tree_bs50.tree -o sptree_bs50_astral.tree 2> sptree_bs50_astral.log
+```
+
+
+Vamo renomear os tips da árvore de supermatrix. Voltamos então par a pasta supermatrix_tree.
+
+```
+pxrlt -t minha_supermatrix.fasta.treefile -c cnames.txt -n nnames.txt -o minha_supermatrix.fasta.relabel.tree
 ```
 
 Uhuuuul!!! Agora nós já temos uma árvore de espécies para nosso conjunto de dados. :D

@@ -221,6 +221,35 @@ Dentro dessas pastas, tem um arquivo `.fasta` ou `.FNA` para cada locus que foi 
 
 O MAFFT é um programa para alinhamento de sequências nucleotídicas ou de aminoácidos. É amplamente usado e reconhecido pela sua eficiência computacional e acurácia. Para a documentação completa, veja aqui: https://mafft.cbrc.jp/alignment/software/
 
+O MAFFT tem diferentes algoritmos para realizar o alinhamento das sequências, que podem ser mais eficientes dependendo do tipo da sequência (longa, curta, com mais ou menos dados faltantes, etc.). Porém, ele tem uma opção para detectar 'automaticamente' qual o melhor algoritmo para alinhar as sequências quee estamos fornecendo para ele, com o argumento `--auto`.
+
+A sintaxe básica para usar o mafft é a seguinte:
+
+```
+mafft [arguments] input > output
+```
+
+Para alinhar uma das nossas sequências montadas, poderia ser assim:
+
+```
+mafft --auto uma_sequencia.fasta > uma_sequencia_alinhada.fasta
+```
+
+Como queremos alinhar vários arquivos, na verdade todos que estão dentro da pasta, vamos utilizar um loop no bash para fazer isso.
+
+Primeiro, vamos criar uma pasta para direcionar as sequencias alinhadas:
+
+```
+mkdir Alignments
+```
+
+Agora, o loop para alinhar todas as sequencias, e direcionar para a pasta criada:
+
+```
+for i in *.fasta; do mafft --reorder --auto "$i" > ./Alignments/"$i"; done
+```
+
+
 
 TO BE DONE.
 

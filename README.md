@@ -33,7 +33,7 @@ Além dessa parte, serão fornecidos recursos bibliográficos adicionais, e disc
 
 [6) Inferência filogenética baseada em máxima-verossimilhança para cada locus e para as sequências concatenadas](https://github.com/tunasdelsur/LaGEvol_Workshop_Cactaceae591/blob/main/README.md#6-inferencia-filogen%C3%A9tica-baseada-em-m%C3%A1xima-verossimilhan%C3%A7a-para-cada-locus-e-para-as-sequ%C3%AAncias-concatenadas))
 
-[7) Inferindo uma árvore de espécies utilizando um método sumário de coalescência de espécies](https://github.com/tunasdelsur/LaGEvol_Workshop_Cactaceae591/blob/main/README.md#5-filtrando-sequ%C3%AAncias-esp%C3%BArias-mal-alinhadas-ou-ricas-em-gaps-e-vendo-as-estat%C3%ADsticas)
+[7) Inferindo uma árvore de espécies utilizando um método sumário de coalescência de espécies](https://github.com/tunasdelsur/LaGEvol_Workshop_Cactaceae591/blob/main/README.md#7-inferindo-uma-%C3%A1rvore-de-esp%C3%A9cies-utilizando-um-m%C3%A9todo-sum%C3%A1rio-de-coalesc%C3%AAncia-de-esp%C3%A9cies)
 
 
  

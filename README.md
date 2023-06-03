@@ -353,6 +353,14 @@ Como dado de entrada para o astral utilizaremos as árvores de genes geradas pel
 cat *.treefile > all-gene-trees.tree
 ```
 
+Vamos renomear os tips das arvores que geramos. Primeiro, renomearemos a arvore de supermatrix
+
+```
+pxrlt -t minha_supermatrix.fasta.treefile -c cnames.txt -n nnames.txt -o minha_supermatrix.fasta.relabel.treefile
+```
+
+
+
 Pensando novamente na organização dos nossos dados e análises, vamos criar uma pasta para armazenar apenas os inputs e resultados gerados pelo Astral.
 ```
 mkdir astral_tree

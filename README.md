@@ -337,7 +337,7 @@ mv partitions.txt ./supermatrix_tree
 
 Agora com a nossa supermatrix podemos utilizá-la para gerar uma árvore baseada em máxima verossimilhança utilizando todos os nossos locos.
 ```
-iqtree -nt 4 -s minha_supermatrix.fasta  -p parts_fas.txt  -st DNA -m MFP -B 1000
+iqtree -nt 4 -s minha_supermatrix.fasta  -p partitions.txt  -st DNA -m MFP -B 1000
 ```
 
 

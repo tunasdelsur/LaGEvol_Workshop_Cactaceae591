@@ -33,7 +33,7 @@ Além dessa parte, serão fornecidos recursos bibliográficos adicionais, e disc
 
 [6) Inferência filogenética baseada em máxima-verossimilhança para cada locus e para as sequências concatenadas
 
-[7) Inferindo uma árvore de espécies, utilizando um método sumário de coalescência de espécies
+[7) Inferindo uma árvore de espécies utilizando um método sumário de coalescência de espécies
 
 
  
@@ -348,7 +348,7 @@ iqtree -nt 4 -s minha_supermatrix.fasta  -p parts_fas.txt  -st DNA -m MFP -B 100
 ```
 
 
-# 7) Inferindo uma árvore de espécies, utilizando um método sumário de coalescência de espécies.
+# 7) Inferindo uma árvore de espécies utilizando um método sumário de coalescência de espécies.
 
 Nessa etapa iremos inferir uma árvore de espécies. Chamamos de árvores de espécies aquelas inferências filogenéticas baseadas em coalescência. Os métodos coalescentes inferem uma filogenia incorporando a heterogeneidade genealógica esperada entre os locos (a discordância entre as árvores de genes).
  

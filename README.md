@@ -159,7 +159,7 @@ hybpiper retrieve_sequences dna -t_dna targets.fasta --sample_names namelist.txt
 Além de recuperar as sequências 'target', podemos também recuperar as sequências adjacentes que foram geradas no sequenciamento. Para isso, utilizamos a o argumento "--run_intronerate" na hora de fazer o assemble, e agora recuperamos essas sequências, que o HybPiper chama de 'supercontig':
 
 ```
-hybpiper retrieve_sequences supercontig -t_dna targets.fasta --sample_names namelist.txt --fasta_dir 04_dna
+hybpiper retrieve_sequences supercontig -t_dna targets.fasta --sample_names namelist.txt --fasta_dir 04_supercontig
 ```
 
 

@@ -223,8 +223,7 @@ Agora podemos mover todos os arquivos fasta dos genes identificados como paralog
 while read line; do mv $line ./locos_paralogos; done < list_paralogs_remove.txt
 ```
 
-# 4) Alinhando as sequências e vendo as estatísticas
-
+# 4) Alinhando as sequências
 Agora que já temos as sequências dos locos e das amostras 'montadas', podemos seguir para o próximo passo, que é alinhar as sequências. Isso é necessário para que possamos comparar as sequências das amostras entre si de maneira que faça sentido evolutivo, ou seja, comparando entre sítios que tenham a mesma história evolutiva. Mesmo que para o sequênciamento de todas as amostras tenha sido usado as mesmas 'probes', é possível e provável que a sequência final montada de cada locus/amostra tenha tamanhos diferentes, tenha iniciado/terminado em regiões diferentes, ou que tenha sido montada regiões além da que fornecemos no arquivo de referência. Por isso, precisamos alinhar.
 
 Após fazer o assemble com o HybPiper, e utilizar o comando `retrieve_sequences`, você deve ter gerado na sua pasta de trabalho os seguintes diretótios, por exemplo: `01_dna_seqs` e `04_supercontigs_seqs`.

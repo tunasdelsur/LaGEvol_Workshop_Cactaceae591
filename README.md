@@ -368,15 +368,10 @@ Vamos renomear os tips das arvores de genes que geramos.
 pxrlt -t all-gene-trees.tree -c cnames.txt -n nnames.txt -o all-gene-trees.relabel.tree
 ```
 
-Agora vamos colapsar os nós com baixo suporte das nossas arvores de genes, exemplo abaixo está colapsando nós com 50 ou menos de bootstrap
-```
-nw_ed  all-gene-trees.tree 'i & b<=50' o > all-gene-tree_bs50.tree
-```
-
 Com esse arquivo contendo todas as nossas árvores de genes com os nós colapsados podemos rodar o programa Astral. 
 Rodando o Astral: 
 ```
-java -jar /local/da/pasta/astral.5.7.8.jar -i all-gene-tree_bs50.tree -o sptree_bs50_astral.tree 2> sptree_bs50_astral.log
+java -jar /local/da/pasta/astral.5.7.8.jar -i all-gene-trees.relabel.tree -o sptree_astral.tree 2> sptree_astral.log
 ```
 
 

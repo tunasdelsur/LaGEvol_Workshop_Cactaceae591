@@ -357,6 +357,9 @@ Pensando novamente na organização dos nossos dados e análises, vamos criar um
 ```
 mkdir astral_tree
 mv  all-gene-trees.tree ./astral_tree
+cp ../supermatrix_tree/cnames.txt ./
+cp ../supermatrix_tree/nnames.txt ./
+
 ```
 
 Vamos renomear os tips das arvores de genes que geramos. 

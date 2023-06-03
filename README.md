@@ -29,11 +29,11 @@ Além dessa parte, serão fornecidos recursos bibliográficos adicionais, e disc
 
 [4) Alinhando as sequências](https://github.com/tunasdelsur/LaGEvol_course#4-alinhando-as-sequ%C3%AAncias)
 
-[5) Filtrando sequências espúrias, mal alinhadas ou ricas em gaps e vendo as estatísticas
+[5) Filtrando sequências espúrias, mal alinhadas ou ricas em gaps e vendo as estatísticas].
 
-[6) Inferência filogenética baseada em máxima-verossimilhança para cada locus e para as sequências concatenadas
+[6) Inferência filogenética baseada em máxima-verossimilhança para cada locus e para as sequências concatenadas]
 
-[7) Inferindo uma árvore de espécies utilizando um método sumário de coalescência de espécies
+[7) Inferindo uma árvore de espécies utilizando um método sumário de coalescência de espécies]
 
 
  

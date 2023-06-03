@@ -29,7 +29,7 @@ Além dessa parte, serão fornecidos recursos bibliográficos adicionais, e disc
 
 [4) Alinhando as sequências](https://github.com/tunasdelsur/LaGEvol_course#4-alinhando-as-sequ%C3%AAncias)
 
-[5) Filtrando sequências espúrias, mal alinhadas ou ricas em gaps e vendo as estatísticas].(https://github.com/tunasdelsur/LaGEvol_Workshop_Cactaceae591/blob/main/README.md#5-filtrando-sequ%C3%AAncias-esp%C3%BArias-mal-alinhadas-ou-ricas-em-gaps-e-vendo-as-estat%C3%ADsticas)
+[5) Filtrando sequências espúrias, mal alinhadas ou ricas em gaps e vendo as estatísticas](https://github.com/tunasdelsur/LaGEvol_Workshop_Cactaceae591/blob/main/README.md#5-filtrando-sequ%C3%AAncias-esp%C3%BArias-mal-alinhadas-ou-ricas-em-gaps-e-vendo-as-estat%C3%ADsticas)
 
 [6) Inferência filogenética baseada em máxima-verossimilhança para cada locus e para as sequências concatenadas](https://github.com/tunasdelsur/LaGEvol_Workshop_Cactaceae591/blob/main/README.md#5-filtrando-sequ%C3%AAncias-esp%C3%BArias-mal-alinhadas-ou-ricas-em-gaps-e-vendo-as-estat%C3%ADsticas)
 

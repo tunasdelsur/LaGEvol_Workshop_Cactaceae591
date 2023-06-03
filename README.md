@@ -28,8 +28,12 @@ Além dessa parte, serão fornecidos recursos bibliográficos adicionais, e disc
 [3) Identificando e removendo possíveis parálogos](https://github.com/tunasdelsur/LaGEvol_course#3-identificando-e-removendo-poss%C3%ADveis-par%C3%A1logos)
 
 [4) Alinhando as sequências](https://github.com/tunasdelsur/LaGEvol_course#4-alinhando-as-sequ%C3%AAncias)
-[5) Filtrando sequências espúrias, mal alinhadas ou ricas em gaps e vendo as estatísticas()
-[6) Inferencia filogenética baseada em máxima-verossimilhança para cada locus e para as sequências concatenadas
+
+[5) Filtrando sequências espúrias, mal alinhadas ou ricas em gaps e vendo as estatísticas
+
+[6) Inferência filogenética baseada em máxima-verossimilhança para cada locus e para as sequências concatenadas
+
+[7) Inferindo uma árvore de espécies, utilizando um método sumário de coalescência de espécies
 
 
  
@@ -284,6 +288,16 @@ Agora escolha um dos dois métodos e faça um loop para realizar esse polimento 
 for i in *.fasta; do trimal -in “$i” -strict -out “strict_$i” -htmlout “$i.html”; done
 ```
 
+Esses alinhamentos 'polidos" serão nossos conjunto de dados utilizados em todas as análises a seguir. Portanto, podemos criar uma pasta para armazenar esses nosso conjunto de dados final. 
+```
+mkdir alinhamento_trimado
+```
+
+Agora vamos mover nossos arquivos finais para a pasta alinhamento_trimado
+```
+for i in strict*; do mv "$i" ./alinhamento_trimado
+```
+
 Agora com nossos locos alinhados e “polidos”, podemos gerar algumas estatísticas para avaliar em cada loco quantas amostras temos, qual o comprimento das sequências, o número de N (caracteres indeterminados), proporção de sítios variáveis... 
 
 Para isso utilizaremos o programa AMAS com o seguinte comando:
@@ -292,8 +306,78 @@ python3 AMAS.py summary -f fasta -d aa -i *.fasta
 ```
 
 # 6) Inferencia filogenética baseada em máxima-verossimilhança para cada locus e para as sequências concatenadas
+Existem diferentes programas e métodos (verossimilhança, bayesiano, coalescente...) para fazer uma inferência filogenética, aqui iremos utilizar o programa iQTree. iQTree é um programa de inferência filogenética baseado em máxima verossimilhança. De forma simplificada métodos de máxima verossimilhança vão avaliar a probabilidade de que um determinado modelo/hipótese tenha gerado os dados observados.
 
-TO BE DONE.
+Para inferir uma árvore para cada loco utilizando o iQTree, podemos usar o comando abaixo:
+
+Exemplo para um loco.
+```
+iqtree -s example.phy -m MFP -B 1000
+```
+Exemplo de loop para todos os arquivos em um só comando.
+```
+nohup sh -c 'for i in *.fasta; do iqtree -nt 4 -s "$i" -st DNA -m MFP -B 1000; done 2>iqtree.err' &
+```
+
+Uma outra forma de inferir uma filogenia é utilizando todos os locos de uma só vez. Para isso precisaremos gerar uma supermatrix (concatenar os dados). Concatenar os dados consiste em combinar os dados de alinhamento de sequência de vários genes em um único arquivo, arquivo esse que podemos chamar de supermatrix. 
+
+Para concatenar os dados podemos utilizar o programa phyx, usando o comando abaixo:
+```
+pxcat -s *fasta -p partitions.txt -o minha_supermatrix.fasta  # -p gera um arquivo com as partições
+```
+
+Também é possível usar o amas para concatenar.
+```
+python3 AMAS.py concat -p partitions.txt -t minha_supermatrix.fasta -u fasta -y raxml -i *.fas -f fasta -d dna
+```
+
+Para manter cada tipo de inferência estimada organizada, vamos criar uma pasta apenas para armazenar nossa supermatrix e as inferências geradas a partir dela. 
+```
+mkdir supermatrix_tree
+```
+
+Vamos mover nossa supermatrix e arquivo de partição para a pasta supermatrix_tree
+```
+mv minha_supermatrix.fasta ./supermatrix_tree
+mv partitions.txt ./supermatrix_tree
+```
+
+Agora com a nossa supermatrix podemos utilizá-la para gerar uma árvore baseada em máxima verossimilhança utilizando todos os nossos locos.
+```
+iqtree -nt 4 -s minha_supermatrix.fasta  -p parts_fas.txt  -st DNA -m MFP -B 1000
+```
+
+
+# 7) Inferindo uma árvore de espécies, utilizando um método sumário de coalescência de espécies.
+
+Nessa etapa iremos inferir uma árvore de espécies. Chamamos de árvores de espécies aquelas inferências filogenéticas baseadas em coalescência. Os métodos coalescentes inferem uma filogenia incorporando a heterogeneidade genealógica esperada entre os locos (a discordância entre as árvores de genes).
+ 
+Nesse tutorial utilizaremos o programa Astral III. Esse programa é um método sumário (sumarização de árvores) para a inferência filogenética baseado no modelo de coalescência. De maneira resumida, o programa infere a árvore de espécies que melhor concorda com a maioria dos quartetos induzidos pelas árvores de cada gene separadamente.
+
+Como dado de entrada para o astral utilizaremos as árvores de genes geradas pelo iQTree. Para isso precisamos entrar na pasta onde estão todos as minhas árvores de genes e junta-las em um único arquivo.
+
+```
+cat *.treefile > all-gene-trees.tree
+```
+
+Pensando novamente na organização dos nossos dados e análises, vamos criar uma pasta para armazenar apenas os inputs e resultados gerados pelo Astral.
+```
+mkdir astral_tree
+mv  all-gene-trees.tree ./astral_tree
+```
+
+Agora vamos colapsar os nós com baixo suporte das nossas arvores de genes, exemplo abaixo está colapsando nós com 50 ou menos de bootstrap
+```
+nw_ed  all-gene-trees.tree 'i & b<=50' o > all-gene-tree_bs50.tree
+```
+
+Com esse arquivo contendo todas as nossas árvores de genes com os nós colapsados podemos rodar o programa Astral. 
+Rodando o Astral: 
+```
+java -jar /local/da/pasta/astral.5.7.8.jar -i all-gene-tree_bs50.tree -o sptree_bs50_astral.tree 2> sptree_bs50_astral.log
+```
+
+Uhuuuul!!! Agora nós já temos uma árvore de espécies para nosso conjunto de dados. :D
 
 ![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
 

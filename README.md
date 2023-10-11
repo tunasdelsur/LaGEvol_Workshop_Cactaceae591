@@ -286,11 +286,35 @@ Agora escolha um dos dois métodos e faça um loop para realizar esse polimento 
 ```
 for i in *.FNA; do trimal -in $i -out ./alinhamento_trimado/"$i"_trimmed.fasta -gt 0.7; done; 
 ```
+Além do trimal, existem outros programas capazes de fazer um polimento dos dados. Um deles é o spruceup, uma ferramenta utilizada para descobrir, visualizar e remover sequências espúrias (muito discrepantes) em múltiplos alinhamentos. Essa ferramenta foi desenvolvida em Python, portanto para usa-la, além de instalar o proprio spruceup é preciso ter o Python instalado no computador. 
 
-Esses alinhamentos 'polidos" serão nossos conjunto de dados utilizados em todas as análises a seguir. 
+Para utilizar o spruceup você precisará de uma supermatrix em fasta (gerada ao concatenar os locos; para aprender como concatenar veja a etapa 6 do presente tutorial), uma árvore preliminar (opcional), e um arquivo onde todos os paramentros escolhidos para a filtragem ficarão (configuration file). Você pode encontrar um exemplo desse arquivo nos arquivos nessa página do github (my-configuration-file.conf) e editalo em qualquer editor de texto. Com todos esses arquivos prontos você já pode rodar o spruceup com o comando a seguir:
 
+```
+python -m spruceup my-configuration-file.conf
+```
+Após rodar essa ferramenta poderemos encontrar os seguintes arquivos de saída (output):
+*0.valor-do-cut-off_nome-do-alinhamento.fasta - um arquivo fasta com seus dados trimados de acordo com os parâmetros previamente definidos (esse é seu arquivo que será usado nas próximas análises)
+*report - um arquivo com a informação de quais sequências foram identificadas como espúrias e trimadas do alinhamento.
+*log - um arquivo com as informaçoes que aparecem na tela enquando a análise está sendo feita.
+*imagens png - São gráficos com a distribuição de distância de cada amostra. Essas figuras são interessantes de serão analisadas para confirmar que os parametros utilizados na trimagem são os mais adequados.
+Para mais detalhes você pode acessar diretamente o github do autor do spruceup -> https://github.com/marekborowiec/spruceup
 
-Agora com nossos locos alinhados e “polidos”, podemos gerar algumas estatísticas para avaliar em cada loco quantas amostras temos, qual o comprimento das sequências, o número de N (caracteres indeterminados), proporção de sítios variáveis... 
+Agora que temos uma supermatrix com as sequencias espúrias trimadas, nós podemos separar essa supermatrix em cada loco. Lembra que ao concatenar os alinhamentos podemos pedir para o programa (que estamos utilizando para concatenar) gerar um arquivo de partição? É com esse arquivo de partição que iremos separar nossa supermatrix em locos.
+
+```
+python3 AMAS.py split -f fasta -d dna -i 0.valor-do-cut-off_nome-do-alinhamento.fasta -l partitions.txt -u fasta -j
+```
+Agora você verá que em sua pasta, além da supermatrix, você tem o arquivo do alinhamento 'polido' de cada um dos locos definidos no arquivo de partição.
+Esses alinhamentos 'polidos" serão nossos conjunto de dados utilizados em todas as análises a seguir, portanto mova-os para uma pasta separada. 
+Exemplo:
+```
+mkdir locos_trimados
+mv OG00* ./locos_trimados
+```
+Pronto! Agora na sua pasta "locos_trimados" estão os locos alinhados e “polidos”.
+
+Com esses arquivos podemos gerar algumas estatísticas para avaliar em cada loco quantas amostras temos, qual o comprimento das sequências, o número de N (caracteres indeterminados), proporção de sítios variáveis... 
 
 Para isso utilizaremos o programa AMAS com o seguinte comando:
 

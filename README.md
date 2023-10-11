@@ -286,7 +286,7 @@ Agora escolha um dos dois métodos e faça um loop para realizar esse polimento 
 ```
 for i in *.FNA; do trimal -in $i -out ./alinhamento_trimado/"$i"_trimmed.fasta -gt 0.7; done; 
 ```
-Além do trimal, existem outros programas capazes de fazer um polimento dos dados. Um deles é o spruceup, uma ferramenta utilizada para descobrir, visualizar e remover sequências espúrias (muito discrepantes) em múltiplos alinhamentos. Essa ferramenta foi desenvolvida em Python, portanto para usa-la, além de instalar o proprio spruceup é preciso ter o Python instalado no computador. 
+Além do trimal, existem outros programas capazes de fazer um polimento dos dados. Um deles é o spruceup, uma ferramenta utilizada para descobrir, visualizar e remover sequências espúrias (muito discrepantes) em múltiplos alinhamentos. Essa ferramenta foi desenvolvida em Python, portanto para usa-la, além de instalar o próprio spruceup é preciso ter o Python instalado no computador. 
 
 Para utilizar o spruceup você precisará de uma supermatrix em fasta (gerada ao concatenar os locos; para aprender como concatenar veja a etapa 6 do presente tutorial), uma árvore preliminar (opcional), e um arquivo onde todos os paramentros escolhidos para a filtragem ficarão (configuration file). Você pode encontrar um exemplo desse arquivo nos arquivos nessa página do github (my-configuration-file.conf) e editalo em qualquer editor de texto. Com todos esses arquivos prontos você já pode rodar o spruceup com o comando a seguir:
 
